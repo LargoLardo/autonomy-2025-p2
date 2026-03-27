@@ -3,7 +3,7 @@ Heartbeat sending logic.
 """
 
 from pymavlink import mavutil
-from common.modules.logger import logger 
+from ..common.modules.logger import logger 
 
 # =================================================================================================
 #                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
@@ -25,10 +25,10 @@ class HeartbeatSender:
         Falliable create (instantiation) method to create a HeartbeatSender object.
         """
         try:
-            return [True, cls(cls.__private_key, connection, logger)]
+            return (True, cls(cls.__private_key, connection, local_logger))
         except Exception as e:
             local_logger.error(f"Error when creating heartbeat sender: {e}", True)
-            return [False, None]
+            return (False, None)
         # Create a HeartbeatSender object
 
     def __init__(
