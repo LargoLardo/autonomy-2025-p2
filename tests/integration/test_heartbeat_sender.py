@@ -99,8 +99,7 @@ def main() -> int:
     threading.Timer(HEARTBEAT_PERIOD * NUM_TRIALS, stop, (heartbeat_sender_controller,)).start()
 
     heartbeat_sender_worker.heartbeat_sender_worker(
-        connection=connection,
-        controller=heartbeat_sender_controller
+        connection=connection, controller=heartbeat_sender_controller
     )
     # =============================================================================================
     #                          ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑

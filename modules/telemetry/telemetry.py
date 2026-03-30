@@ -108,7 +108,9 @@ class Telemetry:
         combining them together to form a single TelemetryData object.
         """
         try:
-            local_position_ned_msg = self._connection.recv_match(type="LOCAL_POSITION_NED", blocking=False, timeout=1)
+            local_position_ned_msg = self._connection.recv_match(
+                type="LOCAL_POSITION_NED", blocking=False, timeout=1
+            )
             attitude_msg = self._connection.recv_match(type="ATTITUDE", blocking=False, timeout=1)
             time.sleep(1)
             if local_position_ned_msg and attitude_msg:
@@ -134,7 +136,9 @@ class Telemetry:
             else:
                 raise Exception("Either position or attitude messages have no contents.")
         except Exception as e:
-            self._logger.error(f"Error receiving either local_position_ned_msg or attitude_msg: {e}", True)
+            self._logger.error(
+                f"Error receiving either local_position_ned_msg or attitude_msg: {e}", True
+            )
         return False, None
         # Read MAVLink message LOCAL_POSITION_NED (32)
         # Read MAVLink message ATTITUDE (30)

@@ -19,9 +19,8 @@ from ..common.modules.logger import logger
 def heartbeat_receiver_worker(
     connection: mavutil.mavfile,
     controller: worker_controller.WorkerController,
-    output_queue: queue_proxy_wrapper.QueueProxyWrapper
+    output_queue: queue_proxy_wrapper.QueueProxyWrapper,
 ) -> None:
-
     """
     Worker process.
 
@@ -50,8 +49,7 @@ def heartbeat_receiver_worker(
     # =============================================================================================
     # Instantiate class object (heartbeat_receiver.HeartbeatReceiver)
     status, heartbeat_receiver_instance = heartbeat_receiver.HeartbeatReceiver.create(
-        connection, 
-        local_logger
+        connection, local_logger
     )
 
     # Main loop: do work.
