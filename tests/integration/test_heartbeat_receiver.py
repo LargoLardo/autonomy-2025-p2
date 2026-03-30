@@ -50,11 +50,13 @@ def start_drone() -> None:
 # =================================================================================================
 def stop(
     heartbeat_receiver_controller: worker_controller.WorkerController,  # Add any necessary arguments
+    output_queue: queue_proxy_wrapper.QueueProxyWrapper
 ) -> None:
     """
     Stop the workers.
     """
     heartbeat_receiver_controller.request_exit()
+    output_queue.put(None)
 
 
 def read_queue(
