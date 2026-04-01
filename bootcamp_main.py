@@ -39,7 +39,7 @@ NUM_WORKERS = 1
 
 # Any other constants
 
-TARGET = command.Position(10, 20, 30) # For command
+TARGET = command.Position(10, 20, 30)  # For command
 
 # =================================================================================================
 #                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
@@ -92,12 +92,8 @@ def main() -> int:
     heartbeat_receiver_to_main_queue = queue_proxy_wrapper.QueueProxyWrapper(
         mp_manager, QUEUE_MAX_SIZE
     )
-    telemetry_to_command_queue = queue_proxy_wrapper.QueueProxyWrapper(
-        mp_manager, QUEUE_MAX_SIZE
-    )
-    command_to_main_queue = queue_proxy_wrapper.QueueProxyWrapper(
-        mp_manager, QUEUE_MAX_SIZE
-    )
+    telemetry_to_command_queue = queue_proxy_wrapper.QueueProxyWrapper(mp_manager, QUEUE_MAX_SIZE)
+    command_to_main_queue = queue_proxy_wrapper.QueueProxyWrapper(mp_manager, QUEUE_MAX_SIZE)
 
     # Create worker properties for each worker type (what inputs it takes, how many workers)
     # Heartbeat sender
@@ -195,7 +191,7 @@ def main() -> int:
         heartbeat_receiver_manager,
         heartbeat_sender_manager,
         telemetry_manager,
-        command_manager
+        command_manager,
     ]
 
     for manager in managers:

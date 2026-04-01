@@ -62,14 +62,14 @@ def read_queue(
     output_queue: queue_proxy_wrapper.QueueProxyWrapper,
     main_logger: logger.Logger,
 ) -> None:
+    """
+    Read and print the output queue.
+    """
     while True:
         item = output_queue.queue.get()
         if item is None:
             break
         main_logger.info(str(item), True)
-    """
-    Read and print the output queue.
-    """
     # Add logic to read from your worker's output queue and print it using the logger
 
 

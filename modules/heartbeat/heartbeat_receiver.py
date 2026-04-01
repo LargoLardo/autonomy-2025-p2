@@ -28,7 +28,7 @@ class HeartbeatReceiver:
         """
         try:
             return True, cls(cls.__private_key, connection, local_logger)
-        except Exception as e:
+        except (OSError, TypeError, AttributeError) as e:
             local_logger.error(f"Error when creating heartbeat reciever: {e}", True)
             return (False, None)
 
@@ -48,9 +48,14 @@ class HeartbeatReceiver:
     def run(
         self,
     ) -> bool:
+        """
+        Attempt to recieve a heartbeat message.
+        If disconnected for over a threshold number of periods,
+        the connection is considered disconnected.
+        """
         try:
             msg = self._connection.recv_match(type="HEARTBEAT", blocking=True, timeout=1)
-        except Exception as e:
+        except (OSError, TypeError, AttributeError) as e:
             self._logger.error(f"Error receiving heartbeat: {e}", True)
             self._missed_count += 1
             if self._missed_count >= 5:
@@ -67,12 +72,6 @@ class HeartbeatReceiver:
                 self._status = False
 
         return self._status
-
-        """
-        Attempt to recieve a heartbeat message.
-        If disconnected for over a threshold number of periods,
-        the connection is considered disconnected.
-        """
 
 
 # =================================================================================================

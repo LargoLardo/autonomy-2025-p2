@@ -55,14 +55,14 @@ def start_drone() -> None:
 # =================================================================================================
 def stop(
     controller: worker_controller.WorkerController,
-    input_queue: queue_proxy_wrapper.QueueProxyWrapper,
+    input_queue: queue_proxy_wrapper.QueueProxyWrapper
 ) -> None:
     """
     Stop the workers.
     """
     controller.request_exit()
     input_queue.queue.put(None)
-    pass  # Add logic to stop your worker
+    # Add logic to stop your worker
 
 
 def read_queue(
@@ -78,17 +78,17 @@ def read_queue(
             break
         main_logger.info(str(output), True)
 
-
-def put_queue(input_queue: queue_proxy_wrapper.QueueProxyWrapper, path: list) -> None:
+def put_queue(
+    input_queue: queue_proxy_wrapper.QueueProxyWrapper,
+    path: list
+) -> None:
     """
     Place mocked inputs into the input queue periodically with period TELEMETRY_PERIOD.
     """
     for telemetry_data in path:
         input_queue.queue.put(telemetry_data)
         time.sleep(TELEMETRY_PERIOD)
-    input_queue.queue.put(
-        None
-    )  # Add logic to place the mocked inputs into your worker's input queue periodically
+    input_queue.queue.put(None)  # Add logic to place the mocked inputs into your worker's input queue periodically
 
 
 # =================================================================================================
@@ -239,7 +239,13 @@ def main() -> int:
     # Read the main queue (worker outputs)
     threading.Thread(target=read_queue, args=(output_queue, main_logger)).start()
 
-    command_worker.command_worker(connection, TARGET, controller, input_queue, output_queue)
+    command_worker.command_worker(
+        connection,
+        TARGET,
+        controller,
+        input_queue,
+        output_queue
+    )
     # =============================================================================================
     #                          ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
     # =============================================================================================

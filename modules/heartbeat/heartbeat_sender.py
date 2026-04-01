@@ -25,7 +25,7 @@ class HeartbeatSender:
         """
         try:
             return (True, cls(cls.__private_key, connection, local_logger))
-        except Exception as e:
+        except (OSError, TypeError, AttributeError) as e:
             local_logger.error(f"Error when creating heartbeat sender: {e}", True)
             return (False, None)
         # Create a HeartbeatSender object
@@ -47,7 +47,7 @@ class HeartbeatSender:
                 mavutil.mavlink.MAV_TYPE_GCS, mavutil.mavlink.MAV_AUTOPILOT_INVALID, 0, 0, 0
             )
             return True
-        except Exception as e:
+        except (OSError, TypeError, AttributeError) as e:
             self._logger.error(f"Error while sending a heartbeat: {e}", True)
             return False
         # Send a heartbeat message
