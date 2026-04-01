@@ -133,9 +133,7 @@ class Telemetry:
                 yaw_speed=attitude_msg.yawspeed,
             )
             return True, telemetry_data
-        self._logger.error(
-            "Error receiving either local_position_ned_msg or attitude_msg", True
-        )
+        self._logger.error("Error receiving either local_position_ned_msg or attitude_msg", True)
         return False, None
         # Read MAVLink message LOCAL_POSITION_NED (32)
         # Read MAVLink message ATTITUDE (30)
