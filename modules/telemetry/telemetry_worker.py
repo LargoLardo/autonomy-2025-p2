@@ -61,7 +61,7 @@ def telemetry_worker(
         controller.check_pause()
         success, telemetry_data = telemetry_instance.run()
         if success:
-            output_queue.put(telemetry_data)
+            output_queue.queue.put(telemetry_data)
     # Main loop: do work.
 
 

@@ -118,7 +118,7 @@ class Telemetry:
                     attitude_msg.time_boot_ms,
                     local_position_ned_msg.time_boot_ms,
                 )
-                return True, TelemetryData(
+                telemetry_data = TelemetryData(
                     time_since_boot=time_since_boot,
                     x=local_position_ned_msg.x,
                     y=local_position_ned_msg.y,
@@ -133,6 +133,7 @@ class Telemetry:
                     pitch_speed=attitude_msg.pitchspeed,
                     yaw_speed=attitude_msg.yawspeed,
                 )
+                return True, telemetry_data
             else:
                 raise Exception("Either position or attitude messages have no contents.")
         except Exception as e:

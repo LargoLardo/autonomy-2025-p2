@@ -54,7 +54,7 @@ def stop(
     Stop the workers.
     """
     controller.request_exit()
-    output_queue.put(None)
+    output_queue.queue.put(None)
     # Add logic to stop your worker
 
 
@@ -70,7 +70,7 @@ def read_queue(
     """
     Read and print the output queue.
     """
-    pass  # Add logic to read from your worker's output queue and print it using the logger
+    # Add logic to read from your worker's output queue and print it using the logger
 
 
 # =================================================================================================
@@ -133,7 +133,7 @@ def main() -> int:
     ).start()
 
     # Read the main queue (worker outputs)
-    threading.Thread(target=read_queue, args=(output_queue, main_logger, main_logger)).start()
+    threading.Thread(target=read_queue, args=(output_queue, main_logger)).start()
 
     telemetry_worker.telemetry_worker(connection, controller, output_queue)
     # =============================================================================================

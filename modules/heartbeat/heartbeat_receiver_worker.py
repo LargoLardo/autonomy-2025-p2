@@ -26,6 +26,7 @@ def heartbeat_receiver_worker(
 
     connection: MAVLink connection.
     controller: Communication channel between the main process and this worker.
+    output_queue: Queue that sends outputs to main process
     """
     # =============================================================================================
     #                          ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
